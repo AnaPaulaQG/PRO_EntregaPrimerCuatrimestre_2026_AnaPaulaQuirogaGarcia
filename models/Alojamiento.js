@@ -25,10 +25,10 @@ const alojamientoSchema = new mongoose.Schema({
         default: true // Por defecto está activo. Si se cambia a false, es una "baja lógica"
     },
     anfitrion: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario', // Lo vincula con el modelo de Usuario que vamos a crear
-        required: true
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Usuario', // Esto conecta con el modelo de Usuario
+    required: true
+}
 }, {
     timestamps: true // Agrega automáticamente la fecha de creación y modificación
 });
