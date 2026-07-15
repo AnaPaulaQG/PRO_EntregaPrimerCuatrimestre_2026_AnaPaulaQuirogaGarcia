@@ -31,7 +31,56 @@ const obtenerUsuarios = async (req, res) => {
     }
 };
 
+// Obtener un usuario por ID
+const obtenerUsuarioPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const usuario = await Usuario.findById(id);
+        
+        if (!usuario) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+        res.status(200).json(usuario);
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al obtener el usuario', error: error.message });
+    }
+};
+
+// Modificar usuario
+const modificarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(id, req.body, { new: true });
+        
+        if (!usuarioActualizado) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ mensaje: 'Usuario actualizado', usuario: usuarioActualizado });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al actualizar', error: error.message });
+    }
+};
+
+// Eliminar usuario (Baja lógica)
+const eliminarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // En lugar de borrar, cambiamos el estado activo a false
+        const usuarioEliminado = await Usuario.findByIdAndUpdate(id, { activo: false }, { new: true });
+        
+        if (!usuarioEliminado) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ mensaje: 'Usuario dado de baja correctamente' });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al dar de baja', error: error.message });
+    }
+};
+
 module.exports = {
     registrarUsuario,
-    obtenerUsuarios
+    obtenerUsuarios,
+    obtenerUsuarioPorId,
+    modificarUsuario,
+    eliminarUsuario
 };

@@ -17,8 +17,10 @@ app.use(express.json());
 // Importamos y usamos las rutas de alojamientos
 const alojamientoRoutes = require('./routes/alojamientoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
+const reservaRoutes = require('./routes/reservaRoutes');
 app.use('/api/alojamientos', alojamientoRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/reservas', reservaRoutes);
 // --------------------
 
 // Conexión a la base de datos MongoDB
